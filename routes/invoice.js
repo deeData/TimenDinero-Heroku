@@ -81,11 +81,11 @@ router.get('/pdf/:id', function (req, res, next) {
     var pathname = url.parse(req.url).pathname; // pathname = '/MyApp'
 
     render('http://' + hostname + '/invoice/inv/' + req.params.id, {
-        orientation: 'portrait',
+        orientation: 'landscape',
         format: 'pdf',
-        zoomFactor: 1,
-        margin: '1cm',
-        width: 1000,
+        zoomFactor: 0.75,
+        margin: '0.5cm',
+        width: 1280,
     }).pipe(destination);
 
 });
