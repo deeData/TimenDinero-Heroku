@@ -87,10 +87,10 @@ router.get('/pdf/:id', function (req, res, next) {
         format: 'pdf',
         zoomFactor: 0.6,
         ZoomFactor: 0.6,
-        Margin: 0,
-        margin: 0,
         Width: 1000,
         width: 1000,
+        printMedia: true,
+        PrintMedia: true,
     }).pipe(destination);
 
 });
