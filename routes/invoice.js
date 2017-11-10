@@ -81,14 +81,12 @@ router.get('/pdf/:id', function (req, res, next) {
     var pathname = url.parse(req.url).pathname; // pathname = '/MyApp'
 
     render('http://' + hostname + '/invoice/inv/' + req.params.id, {
-        //Orientation: 'portrait',
-        //orientation: 'portrait',
-        Orientation: 'landscape',
-        orientation: 'landscape',
+        Orientation: 'portrait',
+        orientation: 'portrait',
         Format: 'pdf',
         format: 'pdf',
-        ZoomFactor: 1,
-        zoomFactor: 1,
+        zoomFactor: 0.6,
+        ZoomFactor: 0.6,
         Margin: 0,
         margin: 0,
         Width: 1000,
