@@ -6,7 +6,8 @@ var fs = require('fs');
 var render = phantom();
 var nodemailer = require('nodemailer');
 var db = require('../models');
-
+var http = require('http');
+var url = require('url');
 
 
 router.getInvoiceData = function (client_id, res, layout, url) {
@@ -76,7 +77,10 @@ router.get('/pdf/:id', function (req, res, next) {
         });
     });
 
-    render('http://localhost:8080/invoice/inv/' + req.params.id, {
+    var hostname = req.headers.host; // hostname = 'localhost:8080'
+    var pathname = url.parse(req.url).pathname; // pathname = '/MyApp'
+
+    render('http://' + hostname + '/invoice/inv/' + req.params.id, {
         orientation: 'portrait',
         format: 'pdf',
         zoomFactor: 1,

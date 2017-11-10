@@ -12,33 +12,48 @@ router.get('/add', function (req, res, next) {
     res.render('company/add');
 });
 
+function isIdUnique(id) {
+    return db.Client.count({ where: { client_id: id } })
+        .then(count => {
+            if (count != 0) {
+                return false;
+            }
+            return true;
+        });
+}
+
 //enter details for new client company
 router.post('/add', upload.single('logo'), function (req, res, next) {
 
-    // Check Image Upload
-    if (req.file) {
-        var logo = req.file.filename;
+    if (!isIdUnique(req.body.client_id)) {
+        res.redirect('/company/profile/' + req.body.client_id);
     } else {
-        var logo = 'NoLogo.jpg';
+
+        // Check Image Upload
+        if (req.file) {
+            var logo = req.file.filename;
+        } else {
+            var logo = 'NoLogo.jpg';
+        }
+
+        var client = {
+            client_id: req.body.client_id,
+            company_name: req.body.company_name,
+            contact_person: req.body.contact_person,
+            email_address: req.body.email_address,
+            phone: req.body.phone,
+            mailing_address: req.body.mailing_address,
+            logo: logo
+        };
+
+        db.Client.create(client).then(function (row) {
+            res.redirect('/company/profile/' + client.client_id);
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
-
-    var client = {
-        client_id: req.body.client_id,
-        company_name: req.body.company_name,
-        contact_person: req.body.contact_person,
-        email_address: req.body.email_address,
-        phone: req.body.phone,
-        mailing_address: req.body.mailing_address,
-        logo: logo
-    };
-
-    db.Client.create(client).then(function (row) {
-        res.redirect('/company/profile/' + client.client_id);
-    }).catch(function (error) {
-        console.log(error);
-    });
-
 });
+
 
 //display company info to edit
 router.get('/update/:client_id', function (req, res, next) {

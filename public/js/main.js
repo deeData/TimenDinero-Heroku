@@ -111,6 +111,8 @@ $(document).ready(function () {
         $('#delete-task').text($(this).data('task'));
     });
 
+    $('input[type=tel]').mask('000-000-0000');
+
 });
 
 
