@@ -59,34 +59,35 @@ $(document).ready(function () {
 
     //search bar
     var cache = {};
-    //autcomplete is a jquery UI component
-    //autocomplete provides suggestions while you type into the field
-    $("#search").autocomplete({
-        minLength: 1,
-        delay: 300,
-        //returns array of labels with values
-        source: function (request, response) {
-            var term = request.term;
-            if (term in cache) {
-                response(cache[term]);
-                return cache[term];
-            }
-            //get company search response from API
-            $.getJSON("/company/search",
-                request,
-                function (data, status, xhr) {
-                    cache[term] = data;
-                    response(data);
+    if ($("#search").autocomplete) {
+        //autcomplete is a jquery UI component
+        //autocomplete provides suggestions while you type into the field
+        $("#search").autocomplete({
+            minLength: 1,
+            delay: 300,
+            //returns array of labels with values
+            source: function (request, response) {
+                var term = request.term;
+                if (term in cache) {
+                    response(cache[term]);
                     return cache[term];
-                });
-        },
-        //when company selected
-        select: function (event, ui) {
-            window.location = '/company/profile/' + ui.item.value;
-            return false;
-        }
-    });
-
+                }
+                //get company search response from API
+                $.getJSON("/company/search",
+                    request,
+                    function (data, status, xhr) {
+                        cache[term] = data;
+                        response(data);
+                        return cache[term];
+                    });
+            },
+            //when company selected
+            select: function (event, ui) {
+                window.location = '/company/profile/' + ui.item.value;
+                return false;
+            }
+        });
+    }
 
     //create click event for edit, displays data for editing
     $('.edit-project').click(function () {
@@ -111,8 +112,9 @@ $(document).ready(function () {
         $('#delete-task').text($(this).data('task'));
     });
 
-    $('input[type=tel]').mask('000-000-0000');
-
+    if ($('input[type=tel]').mask) {
+        $('input[type=tel]').mask('000-000-0000');
+    }
 });
 
 
