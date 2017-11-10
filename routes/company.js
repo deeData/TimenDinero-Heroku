@@ -72,7 +72,7 @@ router.post('/save', upload.single('logo'), function (req, res, next) {
     }
 
     db.Client.update(
-        req.body,
+        client,
         {
             where: {
                 client_id: req.body.client_id

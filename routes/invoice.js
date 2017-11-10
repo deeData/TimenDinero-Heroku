@@ -63,9 +63,9 @@ router.get('/inv/:id', function (req, res, next) {
 
 //generate pdf invoice to path
 router.get('/pdf/:id', function (req, res, next) {
-    var destination = fs.createWriteStream('invoice.pdf');
+    var destination = fs.createWriteStream('public/invoice.pdf');
     destination.addListener('finish', () => {
-        let fp = path.join(__dirname, '../invoice.pdf');
+        let fp = path.join(__dirname, '../public/invoice.pdf');
 
         db.Client.findOne({
             where: {
@@ -107,7 +107,7 @@ router.sendPdf = function (pdfPath, emailAddress, companyName, contactPerson, cl
             html: '<p><strong>Dear ' + contactPerson + ',<br/><br/> Please see your attached invoice. Prompt payment is appreciated!</strong></p> <br /> <a href="paypal.me/payDeidra">Please click here to pay via PayPal.<a /> <br /> <p>Thank you!</p>',
             attachments: [
                 {
-                    filename: 'invoice.pdf',
+                    filename: 'public/invoice.pdf',
                     path: pdfPath
                 }
             ]
