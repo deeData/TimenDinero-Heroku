@@ -4,6 +4,7 @@
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: false, //user to enter client_id
+            unique: 'uniqueClientIdIndex' 
         },
         company_name: DataTypes.STRING,
         logo: DataTypes.STRING,
