@@ -12,13 +12,10 @@ router.get('/add', function (req, res, next) {
     res.render('company/add');
 });
 
-function isIdUnique(id) {
-    return db.Client.count({ where: { client_id: id } })
+function isIdUnique(cid) {
+    return db.Client.count({ where: { client_id: cid } })
         .then(count => {
-            if (count != 0) {
-                return false;
-            }
-            return true;
+            return (count === 0);
         });
 }
 
@@ -27,6 +24,7 @@ router.post('/add', upload.single('logo'), function (req, res, next) {
 
     if (!isIdUnique(req.body.client_id)) {
         res.redirect('/company/profile/' + req.body.client_id);
+        return;
     } else {
 
         // Check Image Upload
