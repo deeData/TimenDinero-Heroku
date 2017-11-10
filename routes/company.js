@@ -13,19 +13,16 @@ router.get('/add', function (req, res, next) {
 });
 
 function isIdUnique(cid) {
-    return db.Client.count({ where: { client_id: cid } })
+    db.Client.count({ where: { client_id: cid } })
         .then(count => {
-            return (count === 0);
+            return (0 === count);
         });
 }
 
 //enter details for new client company
 router.post('/add', upload.single('logo'), function (req, res, next) {
 
-    if (!isIdUnique(req.body.client_id)) {
-        res.redirect('/company/profile/' + req.body.client_id);
-        return;
-    } else {
+    if (isIdUnique(req.body.client_id)) {
 
         // Check Image Upload
         if (req.file) {
@@ -49,6 +46,8 @@ router.post('/add', upload.single('logo'), function (req, res, next) {
         }).catch(function (error) {
             console.log(error);
         });
+    } else {
+        res.redirect('/company/profile/' + req.body.client_id);
     }
 });
 
