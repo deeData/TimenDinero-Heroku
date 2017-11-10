@@ -1,6 +1,6 @@
 {
   "name": "TimenDinero",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "billing app for freelancers",
   "main": "app.js",
   "scripts": {
