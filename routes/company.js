@@ -12,43 +12,43 @@ router.get('/add', function (req, res, next) {
     res.render('company/add');
 });
 
-function isIdUnique(cid) {
-    db.Client.count({ where: { client_id: cid } })
-        .then(count => {
-            return (0 === count);
-        });
-}
-
 //enter details for new client company
 router.post('/add', upload.single('logo'), function (req, res, next) {
 
-    if (isIdUnique(req.body.client_id)) {
+    // only allow for unique external client id to be entered
+    db.Client.count({ where: { client_id: req.body.client_id } })
+        .then(function (count) {
 
-        // Check Image Upload
-        if (req.file) {
-            var logo = req.file.filename;
-        } else {
-            var logo = 'NoLogo.jpg';
-        }
+            if (0 === count) {
+                // Check Image Upload
+                if (req.file) {
+                    var logo = req.file.filename;
+                } else {
+                    var logo = 'NoLogo.jpg';
+                }
 
-        var client = {
-            client_id: req.body.client_id,
-            company_name: req.body.company_name,
-            contact_person: req.body.contact_person,
-            email_address: req.body.email_address,
-            phone: req.body.phone,
-            mailing_address: req.body.mailing_address,
-            logo: logo
-        };
 
-        db.Client.create(client).then(function (row) {
-            res.redirect('/company/profile/' + client.client_id);
-        }).catch(function (error) {
-            console.log(error);
+                var client = {
+                    client_id: req.body.client_id,
+                    company_name: req.body.company_name,
+                    contact_person: req.body.contact_person,
+                    email_address: req.body.email_address,
+                    phone: req.body.phone,
+                    mailing_address: req.body.mailing_address,
+                    logo: logo
+                };
+
+                db.Client.create(client).then(function (row) {
+                    res.redirect('/company/profile/' + client.client_id);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+            } else {
+                //redirect to existing client with same cient ID
+                res.redirect('/company/profile/' + req.body.client_id);
+            }
         });
-    } else {
-        res.redirect('/company/profile/' + req.body.client_id);
-    }
 });
 
 
@@ -97,7 +97,7 @@ router.post('/save', upload.single('logo'), function (req, res, next) {
 
 //delete client company
 router.delete('/delete/:idOfrecord', (req, res) => {
-    
+
     db.Client.destroy({
         where: {
             client_id: req.params.idOfrecord
@@ -128,7 +128,7 @@ router.get('/profile/:id', function (req, res, next) {
 router.get('/search', function (req, res, next) {
     var term = req.query.term;
     console.log('Search Term = ' + term);
-    
+
     db.Client.findAll({
         attributes: ['company_name', 'client_id'],
         where: {

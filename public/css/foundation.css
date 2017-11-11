@@ -2606,7 +2606,7 @@ body {
 .off-canvas-content {
     min-height: 100%;
     background: #fefefe;
-    background-color: #DBDBDB;
+    background-color: #EAEAEA;
     transition: -webkit-transform 0.5s ease;
     transition: transform 0.5s ease;
     -webkit-backface-visibility: hidden;
@@ -3249,7 +3249,7 @@ table.hover tr:nth-of-type(even):hover {
       background: #e6e6e6; }
 
 .tabs-content {
-    background: #DBDBDB;
+    background: #EAEAEA;
     transition: all 0.5s ease;
     border: 1px solid #e6e6e6;
     border-top: 0;
