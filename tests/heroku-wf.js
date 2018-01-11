@@ -3,7 +3,7 @@ var Nightmare = require("nightmare");
 require('nightmare-upload')(Nightmare);
 
 var expect = require("chai").expect,
-    BASE_URL = "http://localhost:8080/",
+    BASE_URL = "https://sheltered-dusk-82113.herokuapp.com/",
     onError = (err) => {
         console.error("Test-runner failed:", err);
     },
@@ -61,7 +61,7 @@ describe("Timen'Dinero Tests", function () {
             .type('form[action*="/admin/index/999"] [name=notes]', 'This client has a ton of requirements to go through. There will be a lot of work to do! When an unknown printerelectronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets.')
             .wait(5000)
             .click('form[action*="/admin/index/999"] [type=submit]')
-            .wait(10000)
+            .wait(8000)
             .then(() => {
                 done();
             })
