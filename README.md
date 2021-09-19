@@ -18,7 +18,7 @@ Manual collection on payment, wait for paper check for deposit || App has link f
 
 Vist App (MVP version):
 
-https://github.com/deeData/TimenDinero-Heroku
+https://timendinero.herokuapp.com/
 
 See powerpoint preso in google drive:
 
