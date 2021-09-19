@@ -1,4 +1,13 @@
-# Project2
+# TimenDinero Billing App
+
+Vist App (MVP version):
+
+https://timendinero.herokuapp.com/
+
+See powerpoint preso in google drive:
+
+https://drive.google.com/file/d/1jk76zz6kDwaLmpJNzrWwbUjQzJYCZmS7/view?usp=sharing
+
 
 Time'nDinero is a billing application for Freelancers.
 
@@ -16,11 +25,4 @@ Manual deliver, attach invoice and email or snail mail || App emails client the 
 
 Manual collection on payment, wait for paper check for deposit || App has link for PayPal payment in email with invoice
 
-Vist App (MVP version):
-
-https://timendinero.herokuapp.com/
-
-See powerpoint preso in google drive:
-
-https://drive.google.com/file/d/1jk76zz6kDwaLmpJNzrWwbUjQzJYCZmS7/view?usp=sharing
 
